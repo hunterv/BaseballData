@@ -1,6 +1,6 @@
 ## Using the Scripts:  
-I included some scripts that I find useful. The project can be built by running "./build.sh" in the src directory. The latest build can be run by running "./run.sh" in the project directory. 
-The run script assumes 2 args: ./run.sh <input> <output_dir>
+I included some scripts that I find useful. The project can be built by running "./build.sh" in the src directory. The latest build can be run by running "./run.sh" in the project directory.  
+The run script assumes 2 args: ./run.sh /input /output_dir
 
 ## What's Done:  
 * I just pasted my code from A2 in there.  
