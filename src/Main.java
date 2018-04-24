@@ -59,33 +59,34 @@ public class Main {
                 String[] playComponents = tokens[1].split("/");
 
                 // Iterate over play, find what we want
-                for (String play : playComponents) {
-                    if (play.charAt(0).equals('S')) {
-                        // Handles singles
-                        Text final_key = new Text(tokens[0] + "~singles");
-                        context.write(final_key, one); // Map player code to 1 (like wordcount)
-                    }
-                    else if (play.equals("C") || play.equals("K") || play.equals("S")) {
-                        // Handles strikes 
-                        Text final_key = new Text(tokens[0] + "~strikes");
-                        context.write(final_key, one);
-                    }
-                    else if (play.charAt(0).equals('D')) {
-                        // Handles singles
-                        Text final_key = new Text(tokens[0] + "~doubles");
-                        context.write(final_key, one); 
-                    }
-                    else if (play.charAt(0).equals('T')) {
-                        // Handles singles
-                        Text final_key = new Text(tokens[0] + "~triples");
-                        context.write(final_key, one); 
-                    }
-                    else if (play.equals("HR")) {
-                        // Handles singles
-                        Text final_key = new Text(tokens[0] + "~homeruns");
-                        context.write(final_key, one); 
-                    }
+                String play = playComponents[0].trim();
+                if (play.charAt(0) == 'S') {
+                    // Handles singles
+                    Text final_key = new Text(tokens[0] + "~singles");
+                    context.write(final_key, one); // Map player code to 1 (like wordcount)
                 }
+                else if (play.equals("C") || play.equals("K") || play.equals("S")) {
+                    // Handles strikes 
+                    Text final_key = new Text(tokens[0] + "~strikes");
+                    context.write(final_key, one);
+                }
+                else if (play.charAt(0) == 'D') {
+                    // Handles singles
+                    Text final_key = new Text(tokens[0] + "~doubles");
+                    context.write(final_key, one); 
+                }
+                else if (play.charAt(0) == 'T') {
+                    // Handles singles
+                    Text final_key = new Text(tokens[0] + "~triples");
+                    context.write(final_key, one); 
+                }
+                else if (play.equals("HR")) {
+                    // Handles singles
+                    Text final_key = new Text(tokens[0] + "~homeruns");
+                    context.write(final_key, one); 
+                }
+                //Text test_val = new Text(play);
+                //context.write(test_val, one);
 
             }
         }
