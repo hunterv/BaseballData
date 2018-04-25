@@ -65,7 +65,7 @@ public class Main {
                     Text final_key = new Text(tokens[0] + "~singles");
                     context.write(final_key, one); // Map player code to 1 (like wordcount)
                 }
-                else if (play.equals("C") || play.equals("K") || play.equals("S")) {
+                else if (play.charAt(0) == 'C' || play.charAt(0) == 'K' || play.charAt(0) == 'S') {
                     // Handles strikes 
                     Text final_key = new Text(tokens[0] + "~strikes");
                     context.write(final_key, one);
@@ -80,7 +80,7 @@ public class Main {
                     Text final_key = new Text(tokens[0] + "~triples");
                     context.write(final_key, one); 
                 }
-                else if (play.equals("HR")) {
+                else if (play.contains("HR")) {
                     // Handles singles
                     Text final_key = new Text(tokens[0] + "~homeruns");
                     context.write(final_key, one); 
@@ -105,8 +105,9 @@ public class Main {
             result.set(sum);
             
             // Create compound key, for 2nd stage sorting
-            Text final_key = new Text(key.toString() + "_" + result.toString());
-            
+            //Text final_key = new Text(key.toString() + "_" + result.toString());
+            Text final_key = new Text(key.toString());
+           
             //context.write(key, result);
             context.write(final_key, result);
         }
@@ -166,7 +167,7 @@ public class Main {
 
         // Paths and exit
         FileInputFormat.addInputPath(job1, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job1, new Path(args[1] + "/tmp_1"));
+        FileOutputFormat.setOutputPath(job1, new Path(args[1] + "/final"));
         
         // Kick off actual execution
         System.out.println("Status: Waiting for job1 completion...");
@@ -174,29 +175,29 @@ public class Main {
         System.out.println("Status: job1 completed");
 
         // Create job2
-        Job job2 = Job.getInstance(conf, "Sorting list");
+        //Job job2 = Job.getInstance(conf, "Sorting list");
         
         // job2 setup
-        job2.setJarByClass(Main.class);
-        job2.setMapperClass(SortMapper.class);
-        job2.setReducerClass(SortReducer.class);
-        job2.setSortComparatorClass(ValueSorter.class);
-        job2.setNumReduceTasks(1);
+        //job2.setJarByClass(Main.class);
+        //job2.setMapperClass(SortMapper.class);
+        //job2.setReducerClass(SortReducer.class);
+        //job2.setSortComparatorClass(ValueSorter.class);
+        //job2.setNumReduceTasks(1);
         // Set expected output values
-        job2.setOutputKeyClass(Text.class);
-        job2.setOutputValueClass(Text.class);
-        job2.setMapOutputKeyClass(Text.class);
-        job2.setOutputValueClass(Text.class);
+        //job2.setOutputKeyClass(Text.class);
+        //job2.setOutputValueClass(Text.class);
+        //job2.setMapOutputKeyClass(Text.class);
+        //job2.setOutputValueClass(Text.class);
         
         // Paths and exit
-        FileInputFormat.addInputPath(job2, new Path(args[1] + "/tmp_1"));
-        FileOutputFormat.setOutputPath(job2, new Path(args[1] + "/results"));
+        //FileInputFormat.addInputPath(job2, new Path(args[1] + "/tmp_1"));
+        //FileOutputFormat.setOutputPath(job2, new Path(args[1] + "/results"));
         
         // Execute job2
-        System.out.println("Status: Waiting for job2 completion...");
-        job2.waitForCompletion(true);
-        System.out.println("Status: job2 completed");
+        //System.out.println("Status: Waiting for job2 completion...");
+        //job2.waitForCompletion(true);
+        //System.out.println("Status: job2 completed");
 
-        System.exit(0);
+        //System.exit(0);
     }
 }
